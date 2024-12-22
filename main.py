@@ -38,31 +38,35 @@ cycles = 10000  # number of times the model should be trained
 # main training loop
 # multiplies each neuron with the weights and then adds the biases
 # then applies the sigmoid function to convert the output between 0 and 1
-hidden_layer_input = np.dot(inputs, hidden_weights) + hidden_biases
-hidden_layer_output = sigmoid(hidden_layer_input)
 
-# same but for the output layer
-output_layer_input = np.dot(hidden_layer_output, output_weights) + output_biases
-output = sigmoid(output_layer_input)
+for cycle in range(cycles):
+    # forward propagation
+    hidden_layer_input = np.dot(inputs, hidden_weights) + hidden_biases
+    hidden_layer_output = sigmoid(hidden_layer_input)
 
-# calculate the error
-error = output - targets
+    # same but for the output layer
+    output_layer_input = np.dot(hidden_layer_output, output_weights) + output_biases
+    output = sigmoid(output_layer_input)
 
-# backpropagation
-# calculate the derivative of the output layer
-derivative_output = error * sigmoid_derivative(output)
+    # calculate the error
+    error = output - targets
 
-# calculate the derivative of the hidden layer
-error_hidden_layer = derivative_output.dot(output_weights.T)
-d_hidden_layer = error_hidden_layer * sigmoid_derivative(hidden_layer_output)
+    # backpropagation
+    # calculate the derivative of the output layer
+    derivative_output = error * sigmoid_derivative(output)
 
-# update the weights and biases
-output_weights -= hidden_layer_output.T.dot(derivative_output) * lr
-hidden_weights -= inputs.T.dot(d_hidden_layer) * lr
+    # calculate the derivative of the hidden layer
+    error_hidden_layer = derivative_output.dot(output_weights.T)
+    d_hidden_layer = error_hidden_layer * sigmoid_derivative(hidden_layer_output)
 
-output_biases -= np.sum(derivative_output) * lr
-hidden_biases -= np.sum(d_hidden_layer) * lr
+    # update the weights and biases
+    output_weights -= hidden_layer_output.T.dot(derivative_output) * lr
+    hidden_weights -= inputs.T.dot(d_hidden_layer) * lr
 
-# print the error
-loss = loss_function(targets, output)
-print(f"Error: {loss}")
+    output_biases -= np.sum(derivative_output) * lr
+    hidden_biases -= np.sum(d_hidden_layer) * lr
+
+    # print the error
+    if cycle % 1000 == 0:
+        loss = loss_function(targets, output)
+        print(f"Error: {loss}")
