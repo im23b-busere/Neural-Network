@@ -63,8 +63,8 @@ for cycle in range(cycles):
     output_weights -= hidden_layer_output.T.dot(derivative_output) * lr
     hidden_weights -= inputs.T.dot(d_hidden_layer) * lr
 
-    output_biases -= np.sum(derivative_output) * lr
-    hidden_biases -= np.sum(d_hidden_layer) * lr
+    output_biases -= np.sum(derivative_output, axis=0, keepdims=True) * lr
+    hidden_biases -= np.sum(d_hidden_layer, axis=0, keepdims=True) * lr
 
     # print the error
     if cycle % 1000 == 0:
