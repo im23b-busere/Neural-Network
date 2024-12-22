@@ -45,4 +45,13 @@ hidden_layer_output = sigmoid(hidden_layer_input)
 output_layer_input = np.dot(hidden_layer_output, output_weights) + output_biases
 output = sigmoid(output_layer_input)
 
+# calculate the error
+error = output - targets
+
+print("Hidden Layer Input: ", hidden_layer_input)
+print("Hidden Layer Output: ", hidden_layer_output)
+print("Output Layer Input: ", output_layer_input)
+print("Output: ", output)
+print("Error: ", error)
+
 
