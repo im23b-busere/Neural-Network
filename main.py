@@ -3,7 +3,7 @@ from numpy.ma.core import outer
 
 from dataset import inputs, targets
 
-# sigmoid function for putting the output in the range of 0 to 1
+# sigmoid function for converting the output in the range of 0 to 1
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
@@ -25,11 +25,24 @@ output_layer_neurons = 1
 np.random.seed(0)
 
 hidden_weights = np.random.uniform(size=(input_layer_neurons, hidden_layer_neurons)) # size to make a matrix of 2x2
-print(hidden_weights)
 output_weights = np.random.uniform(size=(hidden_layer_neurons, output_layer_neurons)) # size to make a matrix of 2x1
-print(output_weights)
+
 
 hidden_biases = np.random.uniform(size=(1, hidden_layer_neurons)) # size to make a matrix of 1x2
-print(hidden_biases)
 output_biases = np.random.uniform(size=(1, output_layer_neurons)) # size to make a matrix of 1x1
-print(output_biases)
+
+# learning rate & cycles
+lr = 0.1 # tells at what rate the weights and biases should be updated
+cycles = 10000 # number of times the model should be trained
+
+# main training loop
+# multiplies each neuron with the weights and then adds the biases
+# then applies the sigmoid function to convert the output between 0 and 1
+hidden_layer_input = np.dot(inputs, hidden_weights) + hidden_biases
+hidden_layer_output = sigmoid(hidden_layer_input)
+
+# same but for the output layer
+output_layer_input = np.dot(hidden_layer_output, output_weights) + output_biases
+output = sigmoid(output_layer_input)
+
+
