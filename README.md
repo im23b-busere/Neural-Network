@@ -7,7 +7,7 @@ Das Netzwerk wird von Grund auf in Python erstellt, unter Verwendung von `numpy`
 
 Bildliche darstellung: 
 
-<img src="https://github.com/user-attachments/assets/a868af24-7632-4bd6-988e-962a30f9143f" alt="AI-Voice-Assistant-Screenshot" width="700"/>
+<img src="https://github.com/user-attachments/assets/a868af24-7632-4bd6-988e-962a30f9143f" alt="Visualization" width="700"/>
 
 
 Das XOR-Problem besteht darin, die Ausgabe einer exklusiven Oder-Operation (XOR) zu modellieren:
@@ -34,11 +34,20 @@ Das XOR-Problem besteht darin, die Ausgabe einer exklusiven Oder-Operation (XOR)
 
 **Sigmoid Funtktion (σ) :**
 
-<img src="https://github.com/user-attachments/assets/c973785e-3ea7-463a-8faf-f276ac02e278" alt="AI-Voice-Assistant-Screenshot" width="700"/>
+<img src="https://github.com/user-attachments/assets/c973785e-3ea7-463a-8faf-f276ac02e278" alt="Sigmoid" width="700"/>
+
+Diese Funktion transformiert die kontinuierliche reelle Zahl in einen Bereich von (0, 1).
 
 
 
-Diese Funktion transformiert die kontinuierliche reelle Zahl in einen Bereich von (0, 1)
+**Ableitung der Sigmoid Funktion (σ) :**
+
+<img src="https://github.com/user-attachments/assets/e1a894d3-5987-4d55-bae1-15f70f163377" alt="Sigmoid-derivative" width="700"/>
+
+Die Ableitung der Sigmoid-Funktion gibt an, wie empfindlich die Sigmoid-Funktion in einem bestimmten Punkt auf Änderungen ihrer Eingabe reagiert.
+
+
+
 
 Das Netzwerk berechnet die Ausgabe wie folgt:
 
@@ -52,6 +61,17 @@ Das Netzwerk berechnet die Ausgabe wie folgt:
    - Berechnung der gewichteten Summe in der Ausgabeschicht:
      `Y-input = (H * W-output) + B-output` 
    - Aktivierung der Ausgabeschicht:
-     `Y-output = σ (Y-input)` 
+     `Y-output = σ (Y-input)`
 
+
+2. **Rückwärtsdurchlauf (Backpropagation):**
+   - Fehlerberechnung:
+    `error = Y-output - Zielausgabe`
+   - Anpassung der Gewichte und Biases mittels Ableitung der Sigmoid-Funktion.
+     
+  
+## Autor
+
+**[im23b-busere](https://github.com/im23b-busere)**  
+Feedback oder Vorschläge? Öffne ein Issue oder erstelle einen Pull-Request!
 
