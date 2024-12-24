@@ -67,6 +67,6 @@ for cycle in range(cycles):
     hidden_biases -= np.sum(d_hidden_layer, axis=0, keepdims=True) * lr
 
     # print the error
-    if cycle % 1000 == 0:
+    if cycle % 100 == 0:
         loss = loss_function(targets, output)
-        print(f"Error: {loss}")
+        print(f"Cycle {cycle}, Error: {loss}")
