@@ -1,44 +1,28 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from dataset import inputs, targets
+from model import sigmoid, sigmoid_derivative, loss_function, initialize_parameters
 
-
-# sigmoid function for converting the output in the range of 0 to 1
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-
-# derivative of the sigmoid function for changing the weights and biases
-def sigmoid_derivative(x):
-    return x * (1 - x)
-
-
-# loss function for calculating the error
-def loss_function(real, prediction):
-    return np.mean((real - prediction) ** 2)
-
+# error history
+error_history = []
 
 # parameters
 input_layer_neurons = 2
 hidden_layer_neurons = 2
 output_layer_neurons = 1
 
-# initializing random weights and biases
-np.random.seed(0)
-
-hidden_weights = np.random.uniform(size=(input_layer_neurons, hidden_layer_neurons))  # size to make a matrix of 2x2
-output_weights = np.random.uniform(size=(hidden_layer_neurons, output_layer_neurons))  # size to make a matrix of 2x1
-
-hidden_biases = np.random.uniform(size=(1, hidden_layer_neurons))  # size to make a matrix of 1x2
-output_biases = np.random.uniform(size=(1, output_layer_neurons))  # size to make a matrix of 1x1
-
 # learning rate & cycles
 lr = 0.1  # tells at what rate the weights and biases should be updated
 cycles = 10000  # number of times the model should be trained
 
+# initialize parameters
+hidden_weights, output_weights, hidden_biases, output_biases = initialize_parameters(
+    input_layer_neurons, hidden_layer_neurons, output_layer_neurons
+)
+
 # main training loop
 # multiplies each neuron with the weights and then adds the biases
 # then applies the sigmoid function to convert the output between 0 and 1
-
 for cycle in range(cycles):
     # forward propagation
     hidden_layer_input = np.dot(inputs, hidden_weights) + hidden_biases
@@ -66,7 +50,20 @@ for cycle in range(cycles):
     output_biases -= np.sum(derivative_output, axis=0, keepdims=True) * lr
     hidden_biases -= np.sum(d_hidden_layer, axis=0, keepdims=True) * lr
 
+    # save the error
+    loss = loss_function(targets, output)
+    error_history.append(loss)
+
     # print the error
     if cycle % 100 == 0:
-        loss = loss_function(targets, output)
         print(f"Cycle {cycle}, Error: {loss}")
+
+# visualize the error history
+plt.figure(figsize=(10, 6))
+plt.plot(error_history, label='Fehlerverlauf')
+plt.xlabel('Zyklen')
+plt.ylabel('Fehler')
+plt.title('Fehlerentwicklung während des Trainings')
+plt.legend()
+plt.grid()
+plt.show()
