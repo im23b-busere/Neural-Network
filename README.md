@@ -68,8 +68,16 @@ Das Netzwerk berechnet die Ausgabe wie folgt:
    - Fehlerberechnung:
     `error = Y-output - Zielausgabe`
    - Anpassung der Gewichte und Biases mittels Ableitung der Sigmoid-Funktion.
-     
   
+
+# Fehlerverlauf während des Trainings
+Nachfolgend ein Beispiel für die Visualisierung der Fehlerentwicklung mit Lernrate 0.1:
+
+<img src="https://github.com/user-attachments/assets/ddb6801a-5d53-4617-b75a-c8a49d2973c6" alt="Fehlerentwicklung während des Trainings" width="700"/>
+
+In diesem Diagramm wird der Fehler pro Zyklus dargestellt, was die Übereinstimmung des Modells verdeutlicht.
+     
+
 ## Autor
 
 **[im23b-busere](https://github.com/im23b-busere)**  
